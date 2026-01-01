@@ -270,8 +270,52 @@ export default function HeroCarousel() {
           zIndex: 10,
           pointerEvents: 'none',
           display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
         }}
       >
+        {/* Branding Overlay - Appears when gates close */}
+        <div
+          style={{
+            position: 'absolute',
+            zIndex: 15,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '20px',
+            opacity: gateState === 'closing' || gateState === 'closed' ? 1 : 0,
+            transform: gateState === 'closing' || gateState === 'closed' ? 'scale(1)' : 'scale(0.9)',
+            transition: 'opacity 0.4s ease-out, transform 0.4s ease-out',
+            transitionDelay: gateState === 'closing' ? '0.3s' : '0s'
+          }}
+        >
+          <div style={{
+            width: '120px',
+            height: '120px',
+            borderRadius: '50%',
+            overflow: 'hidden',
+            border: '4px solid white',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+            backgroundColor: 'white'
+          }}>
+            <img
+              src="/assets/images/logo.jpeg"
+              alt="Logo"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          </div>
+          <div style={{
+            color: 'white',
+            fontSize: '1.8rem',
+            fontWeight: 800,
+            fontFamily: "'Noto Serif', serif",
+            textShadow: '0 2px 10px rgba(0,0,0,0.2)',
+            letterSpacing: '1px'
+          }}>
+            Har Har Maidan Fateh
+          </div>
+        </div>
+
         {/* Left Door */}
         <div
           className="hero-gate__left"
