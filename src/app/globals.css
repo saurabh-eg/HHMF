@@ -1,0 +1,104 @@
+/* Import original CSS files */
+@import url('/assets/css/index-generated_v%3D2b6b816e71940a590df8d30985bfcfc3286d6224.css');
+@import url('/assets/css/email-signup-generated_v%3D2b6b816e71940a590df8d30985bfcfc3286d6224.css');
+@import url('/assets/css/text-over-media-generated_v%3D2b6b816e71940a590df8d30985bfcfc3286d6224.css');
+@import url('/assets/css/text-over-carousel-generated_v%3D2b6b816e71940a590df8d30985bfcfc3286d6224.css');
+@import url('/assets/css/tabbed-content-carousel-generated_v%3D2b6b816e71940a590df8d30985bfcfc3286d6224.css');
+@import url('/assets/css/half-gate-hero-generated_v%3D2b6b816e71940a590df8d30985bfcfc3286d6224.css');
+
+/* Font preloading overrides */
+@font-face {
+  font-family: 'Noto Serif Display';
+  src: url('/assets/fonts/NotoSerifDisplay-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Serif';
+  src: url('/assets/fonts/NotoSerif-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Serif';
+  src: url('/assets/fonts/NotoSerif-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('/assets/fonts/NotoSans-Condensed.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('/assets/fonts/NotoSans-CondensedBold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --gate-offset: 30px;
+  --gate-thickness: 4px;
+  --gate-color: #F54713;
+  --transition-speed-2000: 1.5s;
+  --space-24: 24px;
+  --space-20: 20px;
+  --c-theme-text-base: #ffffff;
+  --c-theme-bd-base: rgba(255, 255, 255, 0.4);
+  --c-theme-bg-active-interface: #ffffff;
+}
+
+/* Vertical Gate Animation Helpers */
+.text-over-carousel__gate {
+  --gate-alignment: var(--gate-offset);
+  --background-size: 0 100%;
+  --transition-speed: var(--transition-speed-2000);
+  position: absolute;
+  z-index: 8;
+  pointer-events: none;
+  inset: 0;
+  transition: background-size var(--transition-speed) ease-in-out;
+}
+
+.text-over-carousel--animated .text-over-carousel__gate {
+  --gate-alignment: calc(50% - var(--gate-offset));
+  --background-size: calc(50% - var(--gate-thickness)) 100%;
+  background-image: linear-gradient(90deg, var(--gate-color), var(--gate-color) 100%), linear-gradient(270deg, var(--gate-color), var(--gate-color) 100%);
+  background-size: var(--background-size);
+  background-position: left top, right top;
+  background-repeat: no-repeat;
+}
+
+.text-over-carousel--animated.is-open .text-over-carousel__gate {
+  --gate-alignment: var(--gate-offset);
+  --background-size: 0 100%;
+}
+
+.text-over-carousel__controls {
+  z-index: 10;
+}
+
+.text-over-media__inner {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.text-over-media.is-active .text-over-media__inner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.text-over-media:not(.is-active) .text-over-media__inner {
+  opacity: 0;
+  transform: translateY(20px);
+}
