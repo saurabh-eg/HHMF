@@ -102,3 +102,9 @@
   opacity: 0;
   transform: translateY(20px);
 }
+
+.hero-cta-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(232, 99, 10, 0.5) !important;
+  filter: brightness(1.1);
+}

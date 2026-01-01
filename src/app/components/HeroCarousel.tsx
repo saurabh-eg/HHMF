@@ -63,7 +63,7 @@ export default function HeroCarousel() {
 
     clearTimeouts();
     setCurrentSlide(index);
-    
+
     // Step 1: Start closing the gate
     setGateState('closing');
 
@@ -71,11 +71,11 @@ export default function HeroCarousel() {
     timeoutRef.current = setTimeout(() => {
       setDisplayedSlide(index);
       setGateState('closed');
-      
+
       // Step 3: Small delay then start opening
       timeoutRef.current = setTimeout(() => {
         setGateState('opening');
-        
+
         // Step 4: Gate fully open, transition complete
         timeoutRef.current = setTimeout(() => {
           setGateState('open');
@@ -145,7 +145,7 @@ export default function HeroCarousel() {
   return (
     <section
       className="hero-carousel-wrapper"
-      style={{ 
+      style={{
         position: 'relative',
         width: '100%',
         height: '80vh',
@@ -178,32 +178,32 @@ export default function HeroCarousel() {
                 sizes="100vw"
               />
             </div>
-            
+
             {/* Dark Overlay */}
-            <div 
-              style={{ 
-                position: 'absolute', 
-                inset: 0, 
-                backgroundColor: 'rgba(0,0,0,0.45)', 
-                zIndex: 2 
-              }} 
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                backgroundColor: 'rgba(0,0,0,0.45)',
+                zIndex: 2
+              }}
             />
-            
+
             {/* Content */}
-            <div 
+            <div
               className="hero-content"
-              style={{ 
-                position: 'relative', 
-                zIndex: 3, 
-                height: '100%', 
-                display: 'flex', 
+              style={{
+                position: 'relative',
+                zIndex: 3,
+                height: '100%',
+                display: 'flex',
                 alignItems: 'center',
                 padding: '0 5%',
                 maxWidth: '1400px',
                 margin: '0 auto'
               }}
             >
-              <div 
+              <div
                 className="hero-content-inner"
                 style={{
                   opacity: index === displayedSlide && gateState === 'open' ? 1 : 0,
@@ -212,9 +212,9 @@ export default function HeroCarousel() {
                   transitionDelay: gateState === 'open' ? '0.2s' : '0s',
                 }}
               >
-                <h2 
-                  className="text-over-media__title text-over-media__title--medium" 
-                  style={{ 
+                <h2
+                  className="text-over-media__title text-over-media__title--medium"
+                  style={{
                     color: 'white',
                     fontSize: 'clamp(2rem, 5vw, 3.5rem)',
                     marginBottom: '20px',
@@ -223,10 +223,10 @@ export default function HeroCarousel() {
                 >
                   {slide.title}
                 </h2>
-                <p 
-                  style={{ 
-                    color: 'white', 
-                    maxWidth: '700px', 
+                <p
+                  style={{
+                    color: 'white',
+                    maxWidth: '700px',
                     marginBottom: '30px',
                     fontSize: 'clamp(1rem, 2vw, 1.25rem)',
                     lineHeight: 1.6,
@@ -235,17 +235,22 @@ export default function HeroCarousel() {
                 >
                   {slide.description}
                 </p>
-                <a 
-                  className="btn btn--tertiary" 
+                <a
+                  className="hero-cta-btn"
                   href={slide.linkHref}
                   style={{
                     display: 'inline-block',
-                    padding: '12px 28px',
-                    border: '2px solid white',
+                    padding: '14px 36px',
+                    background: 'linear-gradient(135deg, #E8630A 0%, #FF8534 100%)',
                     color: 'white',
                     textDecoration: 'none',
-                    fontWeight: 600,
+                    fontWeight: 700,
+                    borderRadius: '50px',
+                    fontSize: '1rem',
                     transition: 'all 0.3s ease',
+                    boxShadow: '0 6px 20px rgba(232, 99, 10, 0.4)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px'
                   }}
                 >
                   {slide.linkText}
@@ -257,7 +262,7 @@ export default function HeroCarousel() {
       </div>
 
       {/* Gate Overlay - The Orange Doors */}
-      <div 
+      <div
         className={`hero-gate ${getGateClass()}`}
         style={{
           position: 'absolute',
@@ -268,27 +273,27 @@ export default function HeroCarousel() {
         }}
       >
         {/* Left Door */}
-        <div 
+        <div
           className="hero-gate__left"
           style={{
             width: '50%',
             height: '100%',
             backgroundColor: '#F54713',
-            transform: gateState === 'open' || gateState === 'opening' 
-              ? 'translateX(-100%)' 
+            transform: gateState === 'open' || gateState === 'opening'
+              ? 'translateX(-100%)'
               : 'translateX(0)',
             transition: `transform ${GATE_ANIMATION_DURATION}ms cubic-bezier(0.65, 0, 0.35, 1)`,
           }}
         />
         {/* Right Door */}
-        <div 
+        <div
           className="hero-gate__right"
           style={{
             width: '50%',
             height: '100%',
             backgroundColor: '#F54713',
-            transform: gateState === 'open' || gateState === 'opening' 
-              ? 'translateX(100%)' 
+            transform: gateState === 'open' || gateState === 'opening'
+              ? 'translateX(100%)'
               : 'translateX(0)',
             transition: `transform ${GATE_ANIMATION_DURATION}ms cubic-bezier(0.65, 0, 0.35, 1)`,
           }}
@@ -298,7 +303,7 @@ export default function HeroCarousel() {
 
 
       {/* Navigation Controls */}
-      <div 
+      <div
         className="hero-controls"
         style={{
           position: 'absolute',
@@ -341,10 +346,10 @@ export default function HeroCarousel() {
           onClick={prevSlide}
           disabled={isTransitioning}
           aria-label="Previous slide"
-          style={{ 
-            background: 'rgba(255,255,255,0.1)', 
-            border: '1px solid rgba(255,255,255,0.3)', 
-            color: 'white', 
+          style={{
+            background: 'rgba(255,255,255,0.1)',
+            border: '1px solid rgba(255,255,255,0.3)',
+            color: 'white',
             cursor: isTransitioning ? 'not-allowed' : 'pointer',
             padding: '8px',
             borderRadius: '4px',
@@ -361,10 +366,10 @@ export default function HeroCarousel() {
           onClick={nextSlide}
           disabled={isTransitioning}
           aria-label="Next slide"
-          style={{ 
-            background: 'rgba(255,255,255,0.1)', 
-            border: '1px solid rgba(255,255,255,0.3)', 
-            color: 'white', 
+          style={{
+            background: 'rgba(255,255,255,0.1)',
+            border: '1px solid rgba(255,255,255,0.3)',
+            color: 'white',
             cursor: isTransitioning ? 'not-allowed' : 'pointer',
             padding: '8px',
             borderRadius: '4px',
@@ -379,7 +384,7 @@ export default function HeroCarousel() {
       </div>
 
       {/* Slide Counter */}
-      <div 
+      <div
         style={{
           position: 'absolute',
           bottom: '30px',
