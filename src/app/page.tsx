@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HeroCarousel from './components/HeroCarousel';
@@ -15,42 +15,33 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Header mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
-      
-      <main className="main-content">
-        <div id="main-content"></div>
-        <div className="main-content-wrapper">
-          
-          <h1 className="container u-visuallyhidden invisible-page-title">
-            Har Har Maidan Fateh
-          </h1>
 
-          {/* Hero Carousel Section */}
-          <HeroCarousel />
+      <main className="flex-1">
+        {/* Hero Carousel Section */}
+        <HeroCarousel />
 
-          {/* Mission Statement Section */}
-          <MissionStatement />
+        {/* Mission Statement Section */}
+        <MissionStatement />
 
-          {/* Horizontal CTA Cards */}
-          <HorizontalCTACards />
+        {/* Horizontal CTA Cards - Langar Sewa & Health Camps */}
+        <HorizontalCTACards />
 
-          {/* Half Gate Hero - Community Assistance */}
-          <HalfGateHero />
+        {/* Half Gate Hero - Our Impact */}
+        <HalfGateHero />
 
-          {/* Our Activities - Tabbed Content Carousel */}
-          <TabbedContentCarousel />
+        {/* Our Activities - Tabbed Content Carousel */}
+        <TabbedContentCarousel />
 
-          {/* Organization Stats */}
-          <OrganizationStats />
+        {/* Organization Stats */}
+        <OrganizationStats />
 
-          {/* More about our organization */}
-          <CTACards />
-
-        </div>
+        {/* More about our organization - CTA Cards */}
+        <CTACards />
       </main>
 
       <Footer />
-    </>
+    </div>
   );
 }

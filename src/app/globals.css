@@ -1,10 +1,6 @@
-/* Import original CSS files */
-@import url('/assets/css/index-generated_v%3D2b6b816e71940a590df8d30985bfcfc3286d6224.css');
-@import url('/assets/css/email-signup-generated_v%3D2b6b816e71940a590df8d30985bfcfc3286d6224.css');
-@import url('/assets/css/text-over-media-generated_v%3D2b6b816e71940a590df8d30985bfcfc3286d6224.css');
-@import url('/assets/css/text-over-carousel-generated_v%3D2b6b816e71940a590df8d30985bfcfc3286d6224.css');
-@import url('/assets/css/tabbed-content-carousel-generated_v%3D2b6b816e71940a590df8d30985bfcfc3286d6224.css');
-@import url('/assets/css/half-gate-hero-generated_v%3D2b6b816e71940a590df8d30985bfcfc3286d6224.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* Font preloading overrides */
 @font-face {
@@ -47,70 +43,50 @@
   font-display: swap;
 }
 
-:root {
-  --gate-offset: 30px;
-  --gate-thickness: 4px;
-  --gate-color: #F54713;
-  --transition-speed-2000: 1.5s;
-  --space-24: 24px;
-  --space-20: 20px;
-  --c-theme-text-base: #ffffff;
-  --c-theme-bd-base: rgba(255, 255, 255, 0.4);
-  --c-theme-bg-active-interface: #ffffff;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply font-sans text-gray-900 antialiased;
+    margin: 0;
+    padding: 0;
+  }
 }
 
-/* Vertical Gate Animation Helpers */
-.text-over-carousel__gate {
-  --gate-alignment: var(--gate-offset);
-  --background-size: 0 100%;
-  --transition-speed: var(--transition-speed-2000);
-  position: absolute;
-  z-index: 8;
-  pointer-events: none;
-  inset: 0;
-  transition: background-size var(--transition-speed) ease-in-out;
+@layer components {
+  .btn-primary {
+    @apply bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold 
+           px-6 py-3 rounded-md transition-all duration-300 
+           hover:shadow-lg hover:scale-105 hover:from-orange-600 hover:to-orange-700;
+  }
+  
+  .btn-outline {
+    @apply border border-gray-800 text-gray-800 font-medium 
+           px-6 py-3 rounded-sm transition-all duration-300 
+           hover:bg-gray-800 hover:text-white;
+  }
+  
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
 }
 
-.text-over-carousel--animated .text-over-carousel__gate {
-  --gate-alignment: calc(50% - var(--gate-offset));
-  --background-size: calc(50% - var(--gate-thickness)) 100%;
-  background-image: linear-gradient(90deg, var(--gate-color), var(--gate-color) 100%), linear-gradient(270deg, var(--gate-color), var(--gate-color) 100%);
-  background-size: var(--background-size);
-  background-position: left top, right top;
-  background-repeat: no-repeat;
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.text-over-carousel--animated.is-open .text-over-carousel__gate {
-  --gate-alignment: var(--gate-offset);
-  --background-size: 0 100%;
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
 }
 
-.text-over-carousel__controls {
-  z-index: 10;
+::-webkit-scrollbar-thumb {
+  background: #E8630A;
+  border-radius: 4px;
 }
 
-.text-over-media__inner {
-  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-}
-
-.text-over-media.is-active .text-over-media__inner {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.text-over-media:not(.is-active) .text-over-media__inner {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.hero-cta-btn:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 8px 25px rgba(232, 99, 10, 0.5) !important;
-  filter: brightness(1.1);
-}
-
-.btn-discover:hover {
-  background-color: #333 !important;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+::-webkit-scrollbar-thumb:hover {
+  background: #D45A09;
 }

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface HeaderProps {
   mobileMenuOpen: boolean;
@@ -29,73 +30,35 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: HeaderProp
   ];
 
   return (
-    <header 
-      className="site-header-wrapper"
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1000,
-        transition: 'all 0.3s ease',
-      }}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
       <nav
-        className="hmf-navbar"
-        style={{
-          background: scrolled 
-            ? 'rgba(255, 255, 255, 0.98)' 
-            : 'linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)',
-          backdropFilter: scrolled ? 'blur(10px)' : 'none',
-          padding: scrolled ? '12px 40px' : '20px 40px',
-          transition: 'all 0.3s ease',
-          boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.1)' : 'none',
-        }}
+        className={`transition-all duration-300 ${
+          scrolled
+            ? 'bg-white/95 backdrop-blur-md shadow-md py-3'
+            : 'bg-gradient-to-b from-black/50 to-transparent py-5'
+        }`}
       >
-        <div style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 flex justify-between items-center">
           {/* Logo/Brand */}
-          <Link
-            href="/"
-            style={{
-              textDecoration: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '14px',
-            }}
-          >
-            <div style={{
-              width: '55px',
-              height: '55px',
-              borderRadius: '50%',
-              overflow: 'hidden',
-              border: scrolled ? '2px solid #E8630A' : '2px solid rgba(255,255,255,0.8)',
-              transition: 'all 0.3s ease',
-              flexShrink: 0,
-            }}>
-              <img
+          <Link href="/" className="flex items-center gap-3 no-underline">
+            <div
+              className={`w-12 h-12 rounded-full overflow-hidden flex-shrink-0 border-2 transition-all duration-300 ${
+                scrolled ? 'border-orange-500' : 'border-white/80'
+              }`}
+            >
+              <Image
                 src="/assets/images/logo.jpeg"
                 alt="Har Har Maidan Fateh Logo"
-                style={{ 
-                  width: '100%', 
-                  height: '100%', 
-                  objectFit: 'cover',
-                }}
+                width={48}
+                height={48}
+                className="w-full h-full object-cover"
               />
             </div>
-            <span style={{
-              color: scrolled ? '#1a1a1a' : 'white',
-              fontSize: '1.35rem',
-              fontWeight: 700,
-              fontFamily: "'Noto Serif', Georgia, serif",
-              textShadow: scrolled ? 'none' : '0 1px 3px rgba(0,0,0,0.3)',
-              transition: 'all 0.3s ease',
-            }}>
+            <span
+              className={`text-lg font-bold font-serif transition-all duration-300 ${
+                scrolled ? 'text-gray-900' : 'text-white drop-shadow-md'
+              }`}
+            >
               Har Har Maidan Fateh
             </span>
           </Link>
@@ -104,141 +67,70 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: HeaderProp
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
-            style={{
-              display: 'none',
-              background: 'none',
-              border: 'none',
-              color: scrolled ? '#1a1a1a' : 'white',
-              fontSize: '28px',
-              cursor: 'pointer',
-              padding: '8px',
-              transition: 'all 0.3s ease',
-            }}
-            className="mobile-menu-toggle"
+            className={`lg:hidden text-2xl p-2 transition-all duration-300 bg-transparent border-none cursor-pointer ${
+              scrolled ? 'text-gray-900' : 'text-white'
+            }`}
           >
             {mobileMenuOpen ? '✕' : '☰'}
           </button>
 
-          {/* Navigation Links */}
-          <ul
-            className={`nav-menu ${mobileMenuOpen ? 'nav-open' : ''}`}
-            style={{
-              display: 'flex',
-              listStyle: 'none',
-              margin: 0,
-              padding: 0,
-              gap: '8px',
-              alignItems: 'center',
-            }}
-          >
+          {/* Navigation Links - Desktop */}
+          <ul className="hidden lg:flex items-center gap-1 list-none m-0 p-0">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  style={{
-                    color: scrolled ? '#333' : 'white',
-                    textDecoration: 'none',
-                    fontWeight: 500,
-                    fontSize: '0.95rem',
-                    padding: '10px 16px',
-                    borderRadius: '8px',
-                    transition: 'all 0.3s ease',
-                    display: 'block',
-                    textShadow: scrolled ? 'none' : '0 1px 2px rgba(0,0,0,0.2)',
-                  }}
-                  className="nav-link"
+                  className={`block px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 no-underline ${
+                    scrolled
+                      ? 'text-gray-700 hover:text-orange-600 hover:bg-orange-50'
+                      : 'text-white hover:text-orange-300 drop-shadow-sm'
+                  }`}
                 >
                   {link.label}
                 </Link>
               </li>
             ))}
-            <li style={{ marginLeft: '8px' }}>
-              <a
+            <li className="ml-4">
+              <Link
                 href="#donate"
-                style={{
-                  background: 'linear-gradient(135deg, #E8630A 0%, #FF8534 100%)',
-                  color: 'white',
-                  textDecoration: 'none',
-                  fontWeight: 600,
-                  padding: '12px 24px',
-                  borderRadius: '50px',
-                  transition: 'all 0.3s ease',
-                  display: 'inline-block',
-                  whiteSpace: 'nowrap',
-                  boxShadow: '0 4px 15px rgba(232, 99, 10, 0.3)',
-                  fontSize: '0.95rem',
-                }}
-                className="donate-btn"
+                className="inline-block bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold text-sm px-5 py-2.5 rounded-md transition-all duration-300 hover:shadow-lg hover:scale-105 no-underline"
               >
                 Donate Now
-              </a>
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* Mobile Menu */}
+        <div
+          className={`lg:hidden overflow-hidden transition-all duration-300 ${
+            mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <ul className="bg-white/95 backdrop-blur-md list-none m-0 p-4 flex flex-col gap-2">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block px-4 py-3 text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-all no-underline"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+            <li className="mt-2">
+              <Link
+                href="#donate"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-center bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold px-5 py-3 rounded-md no-underline"
+              >
+                Donate Now
+              </Link>
             </li>
           </ul>
         </div>
       </nav>
-
-      <style jsx>{`
-        .nav-link:hover {
-          background: ${scrolled ? 'rgba(232, 99, 10, 0.1)' : 'rgba(255,255,255,0.15)'};
-          color: ${scrolled ? '#E8630A' : 'white'} !important;
-        }
-        
-        .donate-btn:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(232, 99, 10, 0.4);
-        }
-
-        @media (max-width: 1024px) {
-          .mobile-menu-toggle { 
-            display: block !important; 
-          }
-          
-          .nav-menu { 
-            position: fixed;
-            top: ${scrolled ? '79px' : '95px'};
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            flex-direction: column;
-            padding: 20px;
-            gap: 5px;
-            transform: translateY(-120%);
-            opacity: 0;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-          }
-          
-          .nav-menu.nav-open {
-            transform: translateY(0);
-            opacity: 1;
-          }
-          
-          .nav-menu .nav-link {
-            color: #333 !important;
-            text-shadow: none !important;
-            padding: 15px 20px !important;
-            width: 100%;
-            text-align: center;
-            border-radius: 10px;
-          }
-          
-          .nav-menu .nav-link:hover {
-            background: rgba(232, 99, 10, 0.1);
-          }
-          
-          .nav-menu li:last-child {
-            margin-top: 10px;
-            margin-left: 0 !important;
-          }
-          
-          .nav-menu .donate-btn {
-            width: 100%;
-            text-align: center;
-          }
-        }
-      `}</style>
     </header>
   );
 }

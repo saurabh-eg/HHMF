@@ -6,7 +6,7 @@ import Image from 'next/image';
 const cards = [
   {
     id: 'langar',
-    title: 'Langar',
+    title: 'LANGAR',
     titleHighlight: 'Sewa',
     description: 'Feeding the hungry with dignity and compassion through our daily community kitchen initiatives.',
     linkText: 'Learn about Langar Sewa',
@@ -16,7 +16,7 @@ const cards = [
   },
   {
     id: 'health',
-    title: 'Health',
+    title: 'HEALTH',
     titleHighlight: 'Camps',
     description: 'Bringing critical medical services and healthcare awareness to the most underserved regions of Yamunanagar.',
     linkText: 'View Health Initiatives',
@@ -28,151 +28,53 @@ const cards = [
 
 export default function HorizontalCTACards() {
   return (
-    <>
-      <section className="hcta-section">
-        <div className="hcta-container">
+    <section className="bg-white py-12 md:py-16 px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
           {cards.map((card) => (
-            <div key={card.id} className="hcta-card" id={card.id}>
-              <div className="hcta-card__inner">
+            <div
+              key={card.id}
+              id={card.id}
+              className="bg-sky-100 rounded-xl overflow-hidden transition-colors duration-300 hover:bg-sky-200 group"
+            >
+              <div className="flex flex-col md:flex-row gap-5 p-5 min-h-[320px]">
                 {/* Image */}
-                <div className="hcta-card__media">
+                <div className="relative flex-shrink-0 md:w-[45%] h-60 md:h-auto rounded-lg overflow-hidden shadow-[6px_6px_0_0_#E8B910]">
                   <Image
                     src={card.image}
                     alt={card.imageAlt}
                     fill
-                    style={{ objectFit: 'cover' }}
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
+
                 {/* Content */}
-                <div className="hcta-card__content">
-                  <h3 className="hcta-card__title">
-                    {card.title} <mark>{card.titleHighlight}</mark>
+                <div className="flex flex-col justify-center flex-1 px-2 py-3 gap-4">
+                  <h3 className="text-xl md:text-2xl font-extrabold uppercase tracking-tight text-gray-900 leading-tight">
+                    {card.title}{' '}
+                    <span className="text-orange-500 font-serif italic font-normal">
+                      {card.titleHighlight}
+                    </span>
                   </h3>
-                  <p className="hcta-card__description">{card.description}</p>
-                  <div className="hcta-card__link">
-                    <Link href={card.linkHref}>{card.linkText}</Link>
-                  </div>
+                  <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                    {card.description}
+                  </p>
+                  <Link
+                    href={card.linkHref}
+                    className="text-gray-800 text-sm font-medium underline underline-offset-4 
+                             hover:text-orange-600 transition-colors duration-300 inline-flex items-center gap-2"
+                  >
+                    {card.linkText}
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
                 </div>
               </div>
             </div>
           ))}
         </div>
-      </section>
-
-      <style jsx>{`
-        .hcta-section {
-          padding: 60px 20px;
-          background-color: #fff;
-        }
-
-        .hcta-container {
-          max-width: 1400px;
-          margin: 0 auto;
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 30px;
-        }
-
-        @media (max-width: 900px) {
-          .hcta-container {
-            grid-template-columns: 1fr;
-          }
-        }
-
-        .hcta-card {
-          background-color: #E8F4FC;
-          border-radius: 12px;
-          overflow: hidden;
-          cursor: pointer;
-          transition: background-color 0.25s ease;
-        }
-
-        .hcta-card:hover {
-          background-color: #D6EBFA;
-        }
-
-        .hcta-card__inner {
-          display: flex;
-          flex-direction: row;
-          gap: 24px;
-          padding: 18px;
-          min-height: 350px;
-        }
-
-        @media (max-width: 600px) {
-          .hcta-card__inner {
-            flex-direction: column;
-            min-height: auto;
-          }
-        }
-
-        .hcta-card__media {
-          position: relative;
-          flex: 0 0 45%;
-          min-height: 280px;
-          border-radius: 10px;
-          overflow: hidden;
-          box-shadow: 6px 6px 0 0 #E8B910;
-        }
-
-        @media (max-width: 600px) {
-          .hcta-card__media {
-            flex: none;
-            height: 220px;
-            min-height: 220px;
-          }
-        }
-
-        .hcta-card__content {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          padding: 10px 15px;
-          gap: 16px;
-        }
-
-        .hcta-card__title {
-          font-family: var(--font-sans, 'Noto Sans', sans-serif);
-          font-size: clamp(1.4rem, 2vw, 1.75rem);
-          font-weight: 800;
-          text-transform: uppercase;
-          letter-spacing: -0.02em;
-          line-height: 1.2;
-          color: #1a1a1a;
-          margin: 0;
-        }
-
-        .hcta-card__title mark {
-          background: none;
-          color: #E8630A;
-          font-family: var(--font-serif, 'Noto Serif', Georgia, serif);
-          font-style: italic;
-          font-weight: 400;
-          text-transform: none;
-        }
-
-        .hcta-card__description {
-          font-size: 1rem;
-          line-height: 1.6;
-          color: #333;
-          margin: 0;
-        }
-
-        .hcta-card__link a {
-          display: inline-block;
-          color: #1a1a1a;
-          font-weight: 600;
-          font-size: 0.95rem;
-          text-decoration: underline;
-          text-underline-offset: 4px;
-          transition: color 0.2s ease;
-        }
-
-        .hcta-card__link a:hover {
-          color: #E8630A;
-        }
-      `}</style>
-    </>
+      </div>
+    </section>
   );
 }

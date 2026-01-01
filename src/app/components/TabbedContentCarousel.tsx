@@ -3,7 +3,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import useEmblaCarousel from 'embla-carousel-react';
 
 const activityData = [
   {
@@ -64,102 +63,119 @@ const activityData = [
 
 export default function TabbedContentCarousel() {
   const [activeTab, setActiveTab] = useState(activityData[0].id);
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start' });
-
-  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
-  const nextSlide = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
+  const [currentItemIndex, setCurrentItemIndex] = useState(0);
 
   const activeItems = activityData.find(tab => tab.id === activeTab)?.items || [];
+  const currentItem = activeItems[currentItemIndex];
+
+  const scrollPrev = useCallback(() => {
+    setCurrentItemIndex(prev => (prev > 0 ? prev - 1 : activeItems.length - 1));
+  }, [activeItems.length]);
+
+  const nextSlide = useCallback(() => {
+    setCurrentItemIndex(prev => (prev < activeItems.length - 1 ? prev + 1 : 0));
+  }, [activeItems.length]);
 
   useEffect(() => {
-    if (emblaApi) emblaApi.reInit();
-  }, [activeTab, emblaApi]);
+    setCurrentItemIndex(0);
+  }, [activeTab]);
 
   return (
-    <section
-      className="component container container--bleed theme-dark container--flush-bottom container--background container--no-bottom-padding"
-      style={{ '--background-color': '#313A44', paddingBottom: '60px' } as React.CSSProperties}
-    >
-      <section className="tabbed-content-carousel">
-        <div className="tabbed-content-carousel__container container">
-          <div className="tabbed-content-carousel__header">
-            <h2 className="tabbed-content-carousel__title">Our Activities</h2>
-            <div className="tabbed-content-carousel__link tabbed-content-carousel__link--top">
-              <Link className="arrow-link arrow-link--arrow" href="#activities">
-                <span>See All Activities</span>
-              </Link>
-            </div>
+    <section className="bg-slate-700 py-16 md:py-20" id="activities">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
+          <h2 className="text-white text-2xl md:text-3xl font-bold uppercase tracking-wide mb-4 md:mb-0">
+            Our Activities
+          </h2>
+          <Link
+            href="#activities"
+            className="text-white/80 text-sm font-medium hover:text-white transition-colors flex items-center gap-2 no-underline"
+          >
+            See All Activities
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
+        </div>
+
+        {/* Content Area */}
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Left - Tab Navigation */}
+          <div className="lg:w-1/5">
+            <ul className="flex lg:flex-col flex-wrap gap-2">
+              {activityData.map(tab => (
+                <li key={tab.id}>
+                  <button
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`w-full text-left px-4 py-3 text-sm font-medium transition-all duration-300 border-l-4 ${
+                      activeTab === tab.id
+                        ? 'bg-white/10 border-orange-500 text-white'
+                        : 'border-transparent text-white/70 hover:text-white hover:bg-white/5'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <div className="tabbed-content-carousel__content">
-            <section aria-label="topics">
-              <ul className="tabbed-content-carousel__tab-list" style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', listStyle: 'none', padding: 0 }}>
-                {activityData.map(tab => (
-                  <li key={tab.id} className="tabbed-content-carousel__tab-item">
-                    <button
-                      className={`btn btn--pill tabbed-content-carousel__tab-button ${activeTab === tab.id ? 'btn--primary' : ''}`}
-                      onClick={() => setActiveTab(tab.id)}
-                      type="button"
-                    >
-                      {tab.label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </section>
+          {/* Center - Carousel Image */}
+          <div className="lg:w-2/5 relative">
+            {currentItem && (
+              <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+                <Image
+                  src={currentItem.image}
+                  alt={currentItem.title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            )}
 
-            <div className="tabbed-content-carousel__carousel" style={{ position: 'relative', marginTop: '30px' }}>
-              <div className="tabbed-content-carousel__controls" style={{ position: 'absolute', top: '-50px', right: 0, display: 'flex', gap: '10px' }}>
+            {/* Carousel Controls */}
+            {activeItems.length > 1 && (
+              <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between px-2">
                 <button
-                  className="btn btn--primary btn--icon-only"
                   onClick={scrollPrev}
-                  type="button"
+                  className="w-10 h-10 flex items-center justify-center bg-orange-500 text-white rounded-full 
+                           shadow-lg transition-all duration-300 hover:bg-orange-600 hover:scale-110"
                   aria-label="Previous"
-                  style={{ borderRadius: '50%', width: '40px', height: '40px', padding: 0 }}
                 >
-                  ←
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path d="M15 19l-7-7 7-7" />
+                  </svg>
                 </button>
                 <button
-                  className="btn btn--primary btn--icon-only"
                   onClick={nextSlide}
-                  type="button"
+                  className="w-10 h-10 flex items-center justify-center bg-orange-500 text-white rounded-full 
+                           shadow-lg transition-all duration-300 hover:bg-orange-600 hover:scale-110"
                   aria-label="Next"
-                  style={{ borderRadius: '50%', width: '40px', height: '40px', padding: 0 }}
                 >
-                  →
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path d="M9 5l7 7-7 7" />
+                  </svg>
                 </button>
               </div>
+            )}
+          </div>
 
-              <div className="embla" ref={emblaRef} style={{ overflow: 'hidden' }}>
-                <div className="embla__container" style={{ display: 'flex' }}>
-                  {activeItems.map((item, index) => (
-                    <div key={index} className="embla__slide" style={{ flex: '0 0 100%', minWidth: 0, paddingRight: '20px' }}>
-                      <div className="article-promo component" style={{ display: 'flex', backgroundColor: '#fff', color: '#000', borderRadius: '8px', overflow: 'hidden' }}>
-                        <div style={{ flex: '0 0 40%', position: 'relative', minHeight: '300px' }}>
-                          <Image
-                            src={item.image}
-                            alt={item.title}
-                            fill
-                            style={{ objectFit: 'cover' }}
-                          />
-                        </div>
-                        <div className="article-promo__content" style={{ padding: '30px', flex: '1' }}>
-                          <h2 className="article-promo__title" style={{ fontSize: '1.5rem', marginBottom: '15px' }}>
-                            <Link href={item.link}>{item.title}</Link>
-                          </h2>
-                          <div className="article-promo__description" style={{ fontSize: '1rem', color: '#666' }}>
-                            {item.description}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+          {/* Right - Content Card */}
+          <div className="lg:w-2/5">
+            {currentItem && (
+              <div className="bg-white rounded-lg p-6 md:p-8 h-full flex flex-col justify-center">
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+                  {currentItem.title}
+                </h3>
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                  {currentItem.description}
+                </p>
               </div>
-            </div>
+            )}
           </div>
         </div>
-      </section>
+      </div>
     </section>
   );
 }

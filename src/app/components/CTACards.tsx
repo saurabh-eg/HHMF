@@ -3,88 +3,76 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
+const cards = [
+  {
+    id: 'role',
+    title: 'Our role',
+    description: 'For over 25 years, the Har Har Maidan Fateh has been committed to fighting the greatest inequities in the world.',
+    image: '/assets/images/activities_main.png',
+    imageAlt: 'Our Role',
+    link: '#about',
+  },
+  {
+    id: 'work',
+    title: 'How we work',
+    description: 'We are focused on results. Those that can be measured. And those measured in ways beyond numbers.',
+    image: '/assets/images/hero_1.png',
+    imageAlt: 'How we work',
+    link: '#activities',
+  },
+  {
+    id: 'story',
+    title: 'Our story',
+    description: 'Learn about the origins of our organization and the values that drive our work.',
+    image: '/assets/images/hero_4.png',
+    imageAlt: 'Our story',
+    link: '#about',
+  },
+];
+
 export default function CTACards() {
   return (
-    <section className="component container container--100">
-      <div className="container__col container__col--100">
-        <section className="section-headline component component--headline container section-headline--small section-headline--no-border" lang="en" dir="ltr">
-          <h2 className="section-headline__title section-headline__title--small">More about our organization</h2>
-        </section>
-        <section className="component grouped-cta-cards">
-          <div className="grouped-cta-cards__items">
-            <div className="cta-card component" lang="en" dir="ltr">
-              <div className="cta-card__image" style={{ position: 'relative', height: '200px' }}>
-                <Image
-                  alt="Our Role"
-                  src="/assets/images/activities_main.png"
-                  fill
-                  style={{ objectFit: 'cover' }}
-                />
-              </div>
-              <div className="cta-card__title">
-                <span>Our role</span>
-              </div>
-              <div className="cta-card__description">
-                <p>For over 25 years, the Har Har Maidan Fateh has been committed to fighting the greatest inequities in the world.</p>
-              </div>
-              <ul className="cta-card__links" aria-label="Our role">
-                <li className="cta-card__link">
-                  <Link className="arrow-link" href="#about">
-                    <span>Learn more</span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
+    <section className="bg-white py-16 md:py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Title */}
+        <h2 className="text-xl md:text-2xl font-bold text-gray-900 uppercase tracking-wide mb-10">
+          More About Our Organization
+        </h2>
 
-            <div className="cta-card component" lang="en" dir="ltr">
-              <div className="cta-card__image" style={{ position: 'relative', height: '200px' }}>
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          {cards.map((card) => (
+            <div key={card.id} className="group">
+              {/* Image */}
+              <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-5">
                 <Image
-                  alt="How we work"
-                  src="/assets/images/hero_1.png"
+                  src={card.image}
+                  alt={card.imageAlt}
                   fill
-                  style={{ objectFit: 'cover' }}
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
-              <div className="cta-card__title">
-                <span>How we work</span>
-              </div>
-              <div className="cta-card__description">
-                <p>We are focused on results. Those that can be measured. And those measured in ways beyond numbers.</p>
-              </div>
-              <ul className="cta-card__links" aria-label="How we work">
-                <li className="cta-card__link">
-                  <Link className="arrow-link" href="#activities">
-                    <span>Learn more</span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
 
-            <div className="cta-card component" lang="en" dir="ltr">
-              <div className="cta-card__image" style={{ position: 'relative', height: '200px' }}>
-                <Image
-                  alt="Our story"
-                  src="/assets/images/hero_4.png"
-                  fill
-                  style={{ objectFit: 'cover' }}
-                />
-              </div>
-              <div className="cta-card__title">
-                <span>Our story</span>
-              </div>
-              <div className="cta-card__description">
-                <p>Learn about the origins of our organization and the values that drive our work.</p>
-              </div>
-              <ul className="cta-card__links" aria-label="Our story">
-                <li className="cta-card__link">
-                  <Link className="arrow-link" href="#about">
-                    <span>Learn more</span>
-                  </Link>
-                </li>
-              </ul>
+              {/* Content */}
+              <h3 className="text-lg font-bold text-gray-900 mb-3">
+                {card.title}
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                {card.description}
+              </p>
+              <Link
+                href={card.link}
+                className="text-gray-900 text-sm font-medium underline underline-offset-4 
+                         hover:text-orange-600 transition-colors duration-300 inline-flex items-center gap-1"
+              >
+                Learn more
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
             </div>
-          </div>
-        </section>
+          ))}
+        </div>
       </div>
     </section>
   );

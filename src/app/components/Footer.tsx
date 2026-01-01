@@ -1,51 +1,93 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
-    <footer id="contact">
-      <section className="global-footer global-footer--dark" dir="ltr">
-        <div className="global-footer__container container">
-          <div className="global-footer__logo" lang="en" dir="ltr">
-            <Link href="/" className="global-footer__logo-link" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '15px' }}>
-              <img src="/assets/images/logo.jpeg" alt="Har Har Maidan Fateh Logo" style={{ height: '70px', width: 'auto', filter: 'brightness(1.1)' }} />
-              <div style={{ fontFamily: "'Noto Serif', Georgia, serif", fontSize: '1.6rem', fontWeight: 700, fontStyle: 'italic', color: '#f5f3ed' }}>Har Har Maidan Fateh</div>
+    <footer className="bg-slate-800 text-white" id="contact">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+          {/* Logo and Brand */}
+          <div className="md:col-span-3">
+            <Link href="/" className="flex items-center gap-3 no-underline mb-4">
+              <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-orange-500 bg-white flex-shrink-0">
+                <Image
+                  src="/assets/images/logo.jpeg"
+                  alt="Har Har Maidan Fateh Logo"
+                  width={48}
+                  height={48}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span className="text-white text-lg font-bold font-serif italic">
+                Har Har Maidan Fateh
+              </span>
             </Link>
           </div>
 
-          <div className="global-footer__main-content">
-            <div className="global-footer__description" lang="en">
+          {/* Description */}
+          <div className="md:col-span-4">
+            <p className="text-gray-300 text-sm leading-relaxed">
               We are a community-based NGO serving humanity through Langar Sewa, health camps, and educational support in Yamunanagar, Haryana, India.
-            </div>
+            </p>
+          </div>
 
-            <div className="global-footer__social-icons">
-              <div style={{ display: 'flex', gap: '20px', fontSize: '24px' }}>
-                <a href="https://www.facebook.com/HarHarMaidanFateh/" target="_blank" rel="noopener noreferrer" style={{ color: '#fff' }}>Facebook</a>
-                <a href="https://www.instagram.com/harharmaidan/" target="_blank" rel="noopener noreferrer" style={{ color: '#fff' }}>Instagram</a>
-              </div>
+          {/* Social Links */}
+          <div className="md:col-span-3">
+            <div className="flex gap-6">
+              <a
+                href="https://www.facebook.com/HarHarMaidanFateh/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-300 hover:text-white transition-colors text-sm"
+              >
+                Facebook
+              </a>
+              <a
+                href="https://www.instagram.com/harharmaidan/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-300 hover:text-white transition-colors text-sm"
+              >
+                Instagram
+              </a>
             </div>
+          </div>
 
-            <nav className="global-footer__main-links global-footer__main-links--desktop" aria-label="Main areas">
-              <ul className="global-footer__items">
-                <li className="global-footer__link-item" lang="en" dir="ltr">
-                  <Link className="global-footer__link link" href="#about">About</Link>
+          {/* Navigation Links */}
+          <div className="md:col-span-2">
+            <nav>
+              <ul className="flex flex-wrap md:flex-col gap-4 md:gap-2 list-none p-0 m-0">
+                <li>
+                  <Link href="#about" className="text-gray-300 hover:text-white transition-colors text-sm underline underline-offset-2">
+                    About
+                  </Link>
                 </li>
-                <li className="global-footer__link-item" lang="en" dir="ltr">
-                  <Link className="global-footer__link link" href="#activities">Our work</Link>
+                <li>
+                  <Link href="#activities" className="text-gray-300 hover:text-white transition-colors text-sm underline underline-offset-2">
+                    Our work
+                  </Link>
                 </li>
-                <li className="global-footer__link-item" lang="en" dir="ltr">
-                  <Link className="global-footer__link link" href="#impact">Impact</Link>
+                <li>
+                  <Link href="#impact" className="text-gray-300 hover:text-white transition-colors text-sm underline underline-offset-2">
+                    Impact
+                  </Link>
                 </li>
               </ul>
             </nav>
-
-            <div className="global-footer__copyright">
-              <div className="footer-copyright" lang="en">© 2025 Har Har Maidan Fateh. Registered NGO in Haryana.</div>
-            </div>
           </div>
         </div>
-      </section>
+      </div>
+
+      {/* Copyright */}
+      <div className="border-t border-gray-700">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <p className="text-center text-gray-400 text-sm">
+            © 2025 Har Har Maidan Fateh. Registered NGO in Haryana.
+          </p>
+        </div>
+      </div>
     </footer>
   );
 }
