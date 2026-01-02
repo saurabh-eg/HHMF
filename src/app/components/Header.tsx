@@ -161,8 +161,7 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: HeaderProp
               onClick={() => setMobileMenuOpen(false)}
               className="block w-full text-center bg-orange-500 
                        text-white font-bold text-base px-6 py-4 rounded-lg 
-                       shadow-lg shadow-orange-500/30 no-underline
-                       hover:bg-orange-600 transition-colors"
+                       no-underline hover:bg-orange-600 transition-colors"
             >
               Donate Now
             </Link>

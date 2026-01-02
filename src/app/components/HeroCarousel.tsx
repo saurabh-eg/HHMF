@@ -38,19 +38,52 @@ const slides = [
   }
 ];
 
+const GATE_DURATION = 600; // ms for gate to close/open
 const AUTO_PLAY_INTERVAL = 6000;
+
+type GateState = 'open' | 'closing' | 'closed' | 'opening';
 
 export default function HeroCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [displayedSlide, setDisplayedSlide] = useState(0);
+  const [gateState, setGateState] = useState<GateState>('open');
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
+  const isTransitioning = gateState !== 'open';
+
+  const clearTimeouts = useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+  }, []);
+
   const goToSlide = useCallback((index: number) => {
-    if (isAnimating || index === currentSlide) return;
-    setIsAnimating(true);
+    if (isTransitioning || index === currentSlide) return;
+
+    clearTimeouts();
     setCurrentSlide(index);
-    setTimeout(() => setIsAnimating(false), 700);
-  }, [currentSlide, isAnimating]);
+
+    // Step 1: Close the gates
+    setGateState('closing');
+
+    // Step 2: When gates are closed, swap the slide
+    timeoutRef.current = setTimeout(() => {
+      setDisplayedSlide(index);
+      setGateState('closed');
+
+      // Step 3: Open the gates
+      timeoutRef.current = setTimeout(() => {
+        setGateState('opening');
+
+        // Step 4: Gates fully open
+        timeoutRef.current = setTimeout(() => {
+          setGateState('open');
+        }, GATE_DURATION);
+      }, 100);
+    }, GATE_DURATION);
+  }, [currentSlide, isTransitioning, clearTimeouts]);
 
   const nextSlide = useCallback(() => {
     goToSlide((currentSlide + 1) % slides.length);
@@ -63,23 +96,42 @@ export default function HeroCarousel() {
   // Auto-play
   useEffect(() => {
     autoPlayRef.current = setInterval(() => {
-      if (!isAnimating) nextSlide();
+      if (gateState === 'open') nextSlide();
     }, AUTO_PLAY_INTERVAL);
 
     return () => {
       if (autoPlayRef.current) clearInterval(autoPlayRef.current);
     };
-  }, [nextSlide, isAnimating]);
+  }, [nextSlide, gateState]);
+
+  // Cleanup
+  useEffect(() => {
+    return () => {
+      clearTimeouts();
+      if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+    };
+  }, [clearTimeouts]);
+
+  // Gate position based on state
+  const getGateTransform = (side: 'left' | 'right') => {
+    const isOpen = gateState === 'open' || gateState === 'opening';
+    if (side === 'left') {
+      return isOpen ? 'translateX(-100%)' : 'translateX(0)';
+    }
+    return isOpen ? 'translateX(100%)' : 'translateX(0)';
+  };
 
   return (
-    <section className="relative w-full h-[85vh] min-h-[600px] overflow-hidden bg-gray-900">
+    <section className="relative w-full h-[85vh] min-h-[600px] overflow-hidden bg-orange-500">
       {/* Slides */}
       {slides.map((slide, index) => (
         <div
           key={slide.id}
-          className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-            index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
-          }`}
+          className="absolute inset-0"
+          style={{
+            visibility: index === displayedSlide ? 'visible' : 'hidden',
+            zIndex: index === displayedSlide ? 1 : 0,
+          }}
         >
           {/* Background Image */}
           <Image
@@ -98,11 +150,13 @@ export default function HeroCarousel() {
           <div className="relative z-[2] h-full flex items-center">
             <div className="max-w-7xl mx-auto px-6 lg:px-10 w-full">
               <div
-                className={`max-w-2xl transition-all duration-700 delay-200 ${
-                  index === currentSlide
-                    ? 'opacity-100 translate-y-0'
-                    : 'opacity-0 translate-y-8'
-                }`}
+                className="max-w-2xl"
+                style={{
+                  opacity: index === displayedSlide && gateState === 'open' ? 1 : 0,
+                  transform: index === displayedSlide && gateState === 'open' ? 'translateY(0)' : 'translateY(30px)',
+                  transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
+                  transitionDelay: gateState === 'open' ? '0.15s' : '0s',
+                }}
               >
                 <h2 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-sans uppercase tracking-tight mb-6 leading-tight">
                   {slide.title}
@@ -114,8 +168,7 @@ export default function HeroCarousel() {
                   href={slide.linkHref}
                   className="inline-block bg-orange-500 text-white font-bold 
                            px-8 py-4 rounded uppercase text-sm tracking-wider
-                           transition-colors duration-300 hover:bg-orange-600
-                           shadow-lg shadow-orange-500/30"
+                           transition-colors duration-300 hover:bg-orange-600"
                 >
                   {slide.linkText}
                 </a>
@@ -125,6 +178,50 @@ export default function HeroCarousel() {
         </div>
       ))}
 
+      {/* Gate Overlay */}
+      <div className="absolute inset-0 z-10 pointer-events-none flex">
+        {/* Left Door */}
+        <div
+          className="w-1/2 h-full bg-orange-500"
+          style={{
+            transform: getGateTransform('left'),
+            transition: `transform ${GATE_DURATION}ms cubic-bezier(0.65, 0, 0.35, 1)`,
+          }}
+        />
+        {/* Right Door */}
+        <div
+          className="w-1/2 h-full bg-orange-500"
+          style={{
+            transform: getGateTransform('right'),
+            transition: `transform ${GATE_DURATION}ms cubic-bezier(0.65, 0, 0.35, 1)`,
+          }}
+        />
+        
+        {/* Logo in Center (when gates are closed) */}
+        <div
+          className="absolute inset-0 flex flex-col items-center justify-center gap-5"
+          style={{
+            opacity: gateState === 'closing' || gateState === 'closed' ? 1 : 0,
+            transform: gateState === 'closing' || gateState === 'closed' ? 'scale(1)' : 'scale(0.9)',
+            transition: 'opacity 0.3s ease-out, transform 0.3s ease-out',
+            transitionDelay: gateState === 'closing' ? '0.25s' : '0s',
+          }}
+        >
+          <div className="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-4 border-white shadow-xl bg-white">
+            <Image
+              src="/assets/images/logo.jpeg"
+              alt="Har Har Maidan Fateh"
+              width={112}
+              height={112}
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <span className="text-white text-xl md:text-2xl font-bold font-serif tracking-wide">
+            Har Har Maidan Fateh
+          </span>
+        </div>
+      </div>
+
       {/* Right Side Navigation */}
       <div className="absolute right-6 md:right-10 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-4">
         {/* Pagination Dots */}
@@ -133,10 +230,10 @@ export default function HeroCarousel() {
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              disabled={isAnimating}
+              disabled={isTransitioning}
               className={`w-3 h-3 rounded-full border-2 border-white/70 transition-all duration-300 p-0
                 ${index === currentSlide ? 'bg-white' : 'bg-transparent hover:bg-white/30'}
-                ${isAnimating ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+                ${isTransitioning ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
@@ -145,10 +242,10 @@ export default function HeroCarousel() {
         {/* Arrow Buttons */}
         <button
           onClick={prevSlide}
-          disabled={isAnimating}
+          disabled={isTransitioning}
           className={`w-9 h-9 flex items-center justify-center bg-white/10 border border-white/30 
                      text-white rounded transition-all duration-300 hover:bg-white/20
-                     ${isAnimating ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+                     ${isTransitioning ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
           aria-label="Previous slide"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -157,10 +254,10 @@ export default function HeroCarousel() {
         </button>
         <button
           onClick={nextSlide}
-          disabled={isAnimating}
+          disabled={isTransitioning}
           className={`w-9 h-9 flex items-center justify-center bg-white/10 border border-white/30 
                      text-white rounded transition-all duration-300 hover:bg-white/20
-                     ${isAnimating ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+                     ${isTransitioning ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
           aria-label="Next slide"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
