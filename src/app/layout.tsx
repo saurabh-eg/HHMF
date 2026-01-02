@@ -2,21 +2,21 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Har Har Maidan Fateh | Serving Humanity with Compassion',
-  description: 'Har Har Maidan Fateh is a community-based NGO in Yamunanagar, Haryana dedicated to serving underprivileged communities through food distribution, health camps, and educational support.',
-  keywords: ['NGO', 'charity', 'Yamunanagar', 'Haryana', 'Langar Sewa', 'health camps', 'education', 'community service', 'Har Har Maidan Fateh'],
-  authors: [{ name: 'Har Har Maidan Fateh' }],
+  title: 'Har Maidaan Fateh Society | Serving Humanity with Compassion',
+  description: 'Har Maidaan Fateh Society is a community-based NGO in Yamunanagar, Haryana dedicated to serving underprivileged communities through food distribution, health camps, and educational support.',
+  keywords: ['NGO', 'charity', 'Yamunanagar', 'Haryana', 'Langar Sewa', 'health camps', 'education', 'community service', 'Har Maidaan Fateh Society'],
+  authors: [{ name: 'Har Maidaan Fateh Society' }],
   openGraph: {
     type: 'website',
     locale: 'en_IN',
     url: 'https://harharmaidan.org',
-    siteName: 'Har Har Maidan Fateh',
-    title: 'Har Har Maidan Fateh | Serving Humanity with Compassion',
+    siteName: 'Har Maidaan Fateh Society',
+    title: 'Har Maidaan Fateh Society | Serving Humanity with Compassion',
     description: 'A community-based NGO in Yamunanagar, Haryana serving the underprivileged through Langar Sewa, health camps, and educational support.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Har Har Maidan Fateh',
+    title: 'Har Maidaan Fateh Society',
     description: 'A community-based NGO serving humanity through Langar Sewa, health camps, and educational support.',
   },
 };

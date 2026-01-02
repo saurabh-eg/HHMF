@@ -7,7 +7,7 @@ const slides = [
   {
     id: 1,
     title: "SERVING HUMANITY WITH LOVE",
-    description: "Har Har Maidan Fateh is dedicated to serving underprivileged communities through food distribution, health camps, and educational support in Yamunanagar, Haryana.",
+    description: "Har Maidaan Fateh Society is dedicated to serving underprivileged communities through food distribution, health camps, and educational support in Yamunanagar, Haryana.",
     image: "/assets/images/hero_1.png",
     linkText: "Learn about our mission",
     linkHref: "#about"
@@ -142,7 +142,7 @@ export default function HeroCarousel() {
             priority={index === 0}
             sizes="100vw"
           />
-          
+
           {/* Dark Overlay */}
           <div className="absolute inset-0 bg-black/50 z-[1]" />
 
@@ -196,7 +196,7 @@ export default function HeroCarousel() {
             transition: `transform ${GATE_DURATION}ms cubic-bezier(0.65, 0, 0.35, 1)`,
           }}
         />
-        
+
         {/* Logo in Center (when gates are closed) */}
         <div
           className="absolute inset-0 flex flex-col items-center justify-center gap-5"
@@ -210,14 +210,14 @@ export default function HeroCarousel() {
           <div className="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-4 border-white shadow-xl bg-white">
             <Image
               src="/assets/images/logo.jpeg"
-              alt="Har Har Maidan Fateh"
+              alt="Har Maidaan Fateh Society"
               width={112}
               height={112}
               className="w-full h-full object-cover"
             />
           </div>
           <span className="text-white text-xl md:text-2xl font-bold font-serif tracking-wide">
-            Har Har Maidan Fateh
+            Har Maidaan Fateh Society
           </span>
         </div>
       </div>

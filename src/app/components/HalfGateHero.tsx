@@ -26,7 +26,7 @@ export default function HalfGateHero() {
               Our Impact in Yamunanagar
             </h3>
             <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-8">
-              Every day, we see the transformative power of community support. From providing meals to ensuring medical care, our mission at Har Har Maidan Fateh is to bring tangible change to those who need it most in Yamunanagar, Haryana.
+              Every day, we see the transformative power of community support. From providing meals to ensuring medical care, our mission at Har Maidaan Fateh Society is to bring tangible change to those who need it most in Yamunanagar, Haryana.
             </p>
             <Link
               href="#activities"

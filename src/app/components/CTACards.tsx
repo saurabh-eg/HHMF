@@ -7,7 +7,7 @@ const cards = [
   {
     id: 'role',
     title: 'Our role',
-    description: 'For over 25 years, the Har Har Maidan Fateh has been committed to fighting the greatest inequities in the world.',
+    description: 'For over 25 years, the Har Maidaan Fateh Society has been committed to fighting the greatest inequities in the world.',
     image: '/assets/images/activities_main.png',
     imageAlt: 'Our Role',
     link: '#about',

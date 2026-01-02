@@ -14,14 +14,14 @@ export default function Footer() {
               <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-orange-500 bg-white flex-shrink-0">
                 <Image
                   src="/assets/images/logo.jpeg"
-                  alt="Har Har Maidan Fateh Logo"
+                  alt="Har Maidaan Fateh Society Logo"
                   width={48}
                   height={48}
                   className="w-full h-full object-cover"
                 />
               </div>
               <span className="text-white text-lg font-bold font-serif italic">
-                Har Har Maidan Fateh
+                Har Maidaan Fateh Society
               </span>
             </Link>
           </div>
@@ -84,7 +84,7 @@ export default function Footer() {
       <div className="border-t border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <p className="text-center text-gray-400 text-sm">
-            © 2025 Har Har Maidan Fateh. Registered NGO in Haryana.
+            © 2025 Har Maidaan Fateh Society. Registered NGO in Haryana.
           </p>
         </div>
       </div>
