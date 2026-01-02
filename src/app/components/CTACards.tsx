@@ -54,7 +54,7 @@ export default function CTACards() {
               </div>
 
               {/* Content */}
-              <h3 className="text-lg font-bold text-gray-900 mb-3">
+              <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-orange-500 transition-colors duration-300">
                 {card.title}
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed mb-4">
