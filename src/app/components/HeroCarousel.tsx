@@ -112,9 +112,9 @@ export default function HeroCarousel() {
                 </p>
                 <a
                   href={slide.linkHref}
-                  className="inline-block bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold 
+                  className="inline-block bg-orange-500 text-white font-bold 
                            px-8 py-4 rounded uppercase text-sm tracking-wider
-                           transition-all duration-300 hover:shadow-xl hover:scale-105
+                           transition-colors duration-300 hover:bg-orange-600
                            shadow-lg shadow-orange-500/30"
                 >
                   {slide.linkText}
@@ -135,7 +135,7 @@ export default function HeroCarousel() {
               onClick={() => goToSlide(index)}
               disabled={isAnimating}
               className={`w-3 h-3 rounded-full border-2 border-white/70 transition-all duration-300 p-0
-                ${index === currentSlide ? 'bg-white scale-110' : 'bg-transparent hover:bg-white/30'}
+                ${index === currentSlide ? 'bg-white' : 'bg-transparent hover:bg-white/30'}
                 ${isAnimating ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
               aria-label={`Go to slide ${index + 1}`}
             />

@@ -49,7 +49,7 @@ export default function CTACards() {
                   src={card.image}
                   alt={card.imageAlt}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover"
                 />
               </div>
 

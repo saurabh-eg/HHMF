@@ -140,7 +140,7 @@ export default function TabbedContentCarousel() {
                 <button
                   onClick={scrollPrev}
                   className="w-10 h-10 flex items-center justify-center bg-orange-500 text-white rounded-full 
-                           shadow-lg transition-all duration-300 hover:bg-orange-600 hover:scale-110"
+                           shadow-lg transition-colors duration-300 hover:bg-orange-600"
                   aria-label="Previous"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -150,7 +150,7 @@ export default function TabbedContentCarousel() {
                 <button
                   onClick={nextSlide}
                   className="w-10 h-10 flex items-center justify-center bg-orange-500 text-white rounded-full 
-                           shadow-lg transition-all duration-300 hover:bg-orange-600 hover:scale-110"
+                           shadow-lg transition-colors duration-300 hover:bg-orange-600"
                   aria-label="Next"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">

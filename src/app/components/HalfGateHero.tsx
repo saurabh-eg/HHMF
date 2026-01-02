@@ -30,9 +30,9 @@ export default function HalfGateHero() {
             </p>
             <Link
               href="#activities"
-              className="inline-block bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold 
+              className="inline-block bg-orange-500 text-white font-semibold 
                        px-8 py-3 rounded text-sm tracking-wide
-                       transition-all duration-300 hover:shadow-lg hover:scale-105 no-underline"
+                       transition-colors duration-300 hover:bg-orange-600 no-underline"
             >
               Discover Our Work
             </Link>

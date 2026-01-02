@@ -105,7 +105,7 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: HeaderProp
             <li className="ml-4">
               <Link
                 href="#donate"
-                className="inline-block bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold text-sm px-5 py-2.5 rounded-md transition-all duration-300 hover:shadow-lg hover:scale-105 no-underline"
+                className="inline-block bg-orange-500 text-white font-semibold text-sm px-5 py-2.5 rounded-md transition-all duration-300 hover:bg-orange-600 no-underline"
               >
                 Donate Now
               </Link>
@@ -159,10 +159,10 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: HeaderProp
             <Link
               href="#donate"
               onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-center bg-gradient-to-r from-orange-500 to-orange-600 
+              className="block w-full text-center bg-orange-500 
                        text-white font-bold text-base px-6 py-4 rounded-lg 
                        shadow-lg shadow-orange-500/30 no-underline
-                       active:scale-95 transition-transform"
+                       hover:bg-orange-600 transition-colors"
             >
               Donate Now
             </Link>
