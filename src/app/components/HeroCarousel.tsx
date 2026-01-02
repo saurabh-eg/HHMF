@@ -265,13 +265,6 @@ export default function HeroCarousel() {
           </svg>
         </button>
       </div>
-
-      {/* Bottom Slide Counter */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 text-white text-sm font-medium tracking-widest">
-        <span className="text-xl font-bold">{String(currentSlide + 1).padStart(2, '0')}</span>
-        <span className="opacity-60 mx-2">/</span>
-        <span className="opacity-60">{String(slides.length).padStart(2, '0')}</span>
-      </div>
     </section>
   );
 }
