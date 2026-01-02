@@ -37,7 +37,7 @@ export default function Footer() {
           <div className="md:col-span-3">
             <div className="flex gap-6">
               <a
-                href="https://www.facebook.com/HarHarMaidanFateh/"
+                href="https://www.facebook.com/Harmaidaanfath"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-300 hover:text-white transition-colors text-sm"
@@ -45,7 +45,7 @@ export default function Footer() {
                 Facebook
               </a>
               <a
-                href="https://www.instagram.com/harharmaidan/"
+                href="https://www.instagram.com/har_maidaanfatehsociety?fbclid=IwY2xjawPD-lBleHRuA2FlbQIxMABicmlkETFMZ3JSSlIybkJCM0JRN0xuc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHrU5fNTt8OExpSoaaPWULxJRXOR83yGcnnYhRB1sMYdzZEp3TYN5X731lwt4_aem_CxKVdMlT29oJpRwbOfg6TQ"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-300 hover:text-white transition-colors text-sm"
